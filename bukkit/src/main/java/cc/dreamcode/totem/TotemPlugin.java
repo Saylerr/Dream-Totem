@@ -79,7 +79,7 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
 
     @Override
     public @NonNull DreamVersion getDreamVersion() {
-        return DreamVersion.create("Dream-Totem", "1.0", "Sayler");
+        return DreamVersion.create("Dream-Totem", "1.0.1", "Sayler");
     }
 
     @Override
