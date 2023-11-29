@@ -28,6 +28,8 @@ public class UserController implements Listener {
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
                 .acceptSync(user -> {
                     user.setName(player.getName());
+                })
+                .acceptAsync(user -> {
                     user.save();
                 }).execute();
     }
@@ -38,7 +40,7 @@ public class UserController implements Listener {
 
         this.tasker.newSharedChain(player.getUniqueId().toString())
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
-                .acceptSync(user -> {
+                .acceptAsync(user -> {
                     user.save();
                 }).execute();
     }
@@ -67,6 +69,7 @@ public class UserController implements Listener {
                     }
 
                     player.addPotionEffect(potionEffect);
+                }).acceptAsync(user -> {
                     user.save();
                 })
                 .execute();
