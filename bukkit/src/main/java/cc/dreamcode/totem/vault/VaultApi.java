@@ -6,6 +6,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class VaultApi {
@@ -20,7 +21,11 @@ public class VaultApi {
 
     private void setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(Economy.class);
-        if (economyProvider != null) economy = economyProvider.getProvider();
+        if (economyProvider == null){
+            getLogger().warning("Nie odnaleziono VaultAPI!");
+            return;
+        }
+        economy = economyProvider.getProvider();
     }
 
     public boolean hasMoney(Player player, double amount){

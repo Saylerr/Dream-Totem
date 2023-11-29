@@ -1,6 +1,6 @@
 **Required:**
 -----
-- Spigot-api 1.12.2+
+- Spigot-api 1.13+
 - Java SDK. (java 11+)
 
 ------

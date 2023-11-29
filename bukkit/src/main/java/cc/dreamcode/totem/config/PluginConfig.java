@@ -32,7 +32,7 @@ public class PluginConfig extends OkaeriConfig {
 
     @Comment("Ustaw efekty (duration: 20 = 1 sekunda).")
     public Map<String, TotemEffect> effects = new MapBuilder<String, TotemEffect>()
-            .put("strength", new TotemEffect(PotionEffectType.INCREASE_DAMAGE.getName(),
+            .put("strength", new TotemEffect(PotionEffectType.INCREASE_DAMAGE,
                     false,
                     100,
                     2,
@@ -43,7 +43,7 @@ public class PluginConfig extends OkaeriConfig {
                     Arrays.asList("&7Cena: &f{PRICE}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
                     Collections.singletonList(new ItemStack(XMaterial.GOLD_BLOCK.parseMaterial(), 16))))
 
-            .put("speed", new TotemEffect(PotionEffectType.SPEED.getName(),
+            .put("speed", new TotemEffect(PotionEffectType.SPEED,
                     false,
                     60,
                     2,
@@ -54,10 +54,10 @@ public class PluginConfig extends OkaeriConfig {
                     Arrays.asList("&7Cena: &f{PRICE}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
                     Collections.singletonList(new ItemStack(XMaterial.GOLD_BLOCK.parseMaterial(), 16))))
 
-            .put("resistance", new TotemEffect(PotionEffectType.DAMAGE_RESISTANCE.getName(),
+            .put("resistance", new TotemEffect(PotionEffectType.DAMAGE_RESISTANCE,
                     false,
                     40,
-                    2,
+                    1,
                     0,
                     14,
                     XMaterial.TOTEM_OF_UNDYING.parseMaterial(),
@@ -70,7 +70,7 @@ public class PluginConfig extends OkaeriConfig {
     @Comment("Ustaw menu:")
     public BukkitMenuBuilder totemMenu = new BukkitMenuBuilder(
             "&6&lWybór efektów",
-            6,
+            3,
             new MapBuilder<Integer, ItemStack>()
                     .put(4, new ItemBuilder(XMaterial.HOPPER.parseItem())
                             .setName("&8> &6&lWYBIERZ EFEKT &8<")

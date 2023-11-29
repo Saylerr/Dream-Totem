@@ -2,7 +2,7 @@ package cc.dreamcode.totem.command;
 
 import cc.dreamcode.command.annotations.RequiredPlayer;
 import cc.dreamcode.command.bukkit.BukkitCommand;
-import cc.dreamcode.totem.TotemService;
+import cc.dreamcode.totem.inventory.TotemMenuHolder;
 import eu.okaeri.injector.annotation.Inject;
 import lombok.NonNull;
 import org.bukkit.command.CommandSender;
@@ -12,20 +12,16 @@ import java.util.List;
 
 @RequiredPlayer
 public class TotemCommand extends BukkitCommand {
+    @Inject private TotemMenuHolder totemMenuHolder;
 
-    private final TotemService totemService;
-
-    @Inject
-    public TotemCommand(final TotemService totemService) {
+    public TotemCommand() {
         super("totem");
-
-        this.totemService = totemService;
     }
 
     @Override
     public void content(@NonNull CommandSender sender, @NonNull String[] args) {
         final Player player = (Player) sender;
-        totemService.getEffectsMenu().open(player);
+        totemMenuHolder.open(player);
     }
 
     @Override

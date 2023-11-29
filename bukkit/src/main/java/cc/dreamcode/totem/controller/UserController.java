@@ -1,8 +1,6 @@
 package cc.dreamcode.totem.controller;
 
 import cc.dreamcode.totem.TotemEffect;
-import cc.dreamcode.totem.TotemPlugin;
-import cc.dreamcode.totem.user.User;
 import cc.dreamcode.totem.user.UserRepository;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.tasker.core.Tasker;
@@ -14,31 +12,35 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 
-/**
- * Example usage of user repository.
- * Register controller in plugin component system.
- */
 @RequiredArgsConstructor(onConstructor_= @Inject)
 public class UserController implements Listener {
-
     private final UserRepository userRepository;
     private final Tasker tasker;
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        final Player player = e.getPlayer();
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        final Player player = event.getPlayer();
 
-        this.tasker.newChain()
+        this.tasker.newSharedChain(player.getUniqueId().toString())
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
                 .acceptSync(user -> {
                     user.setName(player.getName());
-                })
-                .acceptAsync(user -> {
                     user.save();
-                })
-                .execute();
+                }).execute();
+    }
+
+    @EventHandler
+    public void onPlayerDisconnect(PlayerQuitEvent event) {
+        final Player player = event.getPlayer();
+
+        this.tasker.newSharedChain(player.getUniqueId().toString())
+                .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
+                .acceptSync(user -> {
+                    user.save();
+                }).execute();
     }
 
     @EventHandler
@@ -47,7 +49,7 @@ public class UserController implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        this.tasker.newSharedChain("useTotem")
+        this.tasker.newSharedChain(player.getUniqueId().toString())
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
                 .acceptSync(user -> {
                     if(user.getTotemEffect() == null) return;
@@ -65,8 +67,6 @@ public class UserController implements Listener {
                     }
 
                     player.addPotionEffect(potionEffect);
-                })
-                .acceptSync(user -> {
                     user.save();
                 })
                 .execute();
@@ -79,8 +79,11 @@ public class UserController implements Listener {
         Player player = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        User user = userRepository.findOrCreateByHumanEntity(player);
-        user.setLastDamagerUUID(damager.getUniqueId());
-        user.save();
+        this.tasker.newChain()
+                .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
+                .acceptAsync(user -> {
+                    user.setLastDamagerUUID(damager.getUniqueId());
+                })
+                .execute();
     }
 }

@@ -19,6 +19,7 @@ import cc.dreamcode.totem.command.TotemCommand;
 import cc.dreamcode.totem.config.MessageConfig;
 import cc.dreamcode.totem.config.PluginConfig;
 import cc.dreamcode.totem.controller.UserController;
+import cc.dreamcode.totem.inventory.TotemMenuHolder;
 import cc.dreamcode.totem.user.UserRepository;
 import cc.dreamcode.totem.vault.VaultApi;
 import eu.okaeri.configs.serdes.OkaeriSerdesPack;
@@ -30,11 +31,11 @@ import lombok.NonNull;
 
 public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukkitConfig, DreamPersistence {
 
-    @Getter private static TotemPlugin bukkitTemplatePlugin;
+    @Getter private static TotemPlugin totemPlugin;
 
     @Override
     public void load(@NonNull ComponentManager componentManager) {
-        bukkitTemplatePlugin = this;
+        totemPlugin = this;
     }
 
     @Override
@@ -59,8 +60,6 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
 
             // register persistence + repositories
             this.registerInjectable(pluginConfig.storageConfig);
-            this.registerInjectable(pluginConfig.effects);
-            this.registerInjectable(pluginConfig.totemMenu);
 
             componentManager.registerResolver(DocumentPersistenceComponentResolver.class);
             componentManager.registerResolver(DocumentRepositoryComponentResolver.class);
@@ -68,7 +67,7 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
             componentManager.registerComponent(DocumentPersistence.class);
             componentManager.registerComponent(UserRepository.class);
             componentManager.registerComponent(VaultApi.class);
-            componentManager.registerComponent(TotemService.class);
+            componentManager.registerComponent(TotemMenuHolder.class);
             componentManager.registerComponent(TotemCommand.class);
         });
 
