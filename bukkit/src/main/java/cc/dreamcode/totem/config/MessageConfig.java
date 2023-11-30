@@ -19,6 +19,7 @@ import eu.okaeri.configs.annotation.Names;
 })
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
 public class MessageConfig extends OkaeriConfig {
+    public BukkitNotice alreadyPurchased = new BukkitNotice(MinecraftNoticeType.CHAT, "&c» &7Posiadasz już zakupiony efekt {EFFECT_NAME}!");
     public BukkitNotice missingRequiredItems = new BukkitNotice(MinecraftNoticeType.CHAT, "&c» &7Brak wymaganych przedmiotów! &8(&f{COUNT_ITEMS}&8/&f{REQUIRED_ITEMS}&8)");
     public BukkitNotice noEnoughMoney = new BukkitNotice(MinecraftNoticeType.CHAT, "&c» &7Nie posiadasz wystarczająco pieniędzy! &8(&f{BALANCE}&8/&f{PRICE}&8)");
     public BukkitNotice purchasedTotemEffect = new BukkitNotice(MinecraftNoticeType.CHAT, "&a» &7Pomyślnie zakupiono efekt: &f{TOTEM_EFFECT}");

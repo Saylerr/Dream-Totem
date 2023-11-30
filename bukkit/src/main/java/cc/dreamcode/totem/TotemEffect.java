@@ -8,6 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 public class TotemEffect implements Serializable {
