@@ -84,8 +84,11 @@ public class UserController implements Listener {
 
         this.tasker.newChain()
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
-                .acceptAsync(user -> {
+                .acceptSync(user -> {
                     user.setLastDamagerUUID(damager.getUniqueId());
+                })
+                .acceptAsync(user -> {
+                    user.save();
                 })
                 .execute();
     }

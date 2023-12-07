@@ -47,39 +47,32 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
         componentManager.registerResolver(CommandComponentResolver.class);
         componentManager.registerResolver(ListenerComponentResolver.class);
         componentManager.registerResolver(RunnableComponentResolver.class);
-
         componentManager.registerResolver(ConfigurationComponentResolver.class);
-        componentManager.registerComponent(MessageConfig.class, messageConfig ->
-                this.getInject(BukkitCommandProvider.class).ifPresent(bukkitCommandProvider -> {
-                    bukkitCommandProvider.setRequiredPermissionMessage(messageConfig.noPermission.getText());
-                    bukkitCommandProvider.setRequiredPlayerMessage(messageConfig.notPlayer.getText());
-                }));
-
+        componentManager.registerComponent(MessageConfig.class, messageConfig -> this.getInject(BukkitCommandProvider.class).ifPresent(bukkitCommandProvider -> {
+            bukkitCommandProvider.setRequiredPermissionMessage(messageConfig.noPermission.getText());
+            bukkitCommandProvider.setRequiredPlayerMessage(messageConfig.notPlayer.getText());
+        }));
         componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
             componentManager.setDebug(pluginConfig.debug);
-
-            // register persistence + repositories
             this.registerInjectable(pluginConfig.storageConfig);
-
             componentManager.registerResolver(DocumentPersistenceComponentResolver.class);
             componentManager.registerResolver(DocumentRepositoryComponentResolver.class);
-
             componentManager.registerComponent(DocumentPersistence.class);
             componentManager.registerComponent(UserRepository.class);
             componentManager.registerComponent(VaultApi.class);
             componentManager.registerComponent(TotemMenuHolder.class);
-            componentManager.registerComponent(TotemCommand.class);
+            return;
         });
-
+        componentManager.registerComponent(TotemCommand.class);
         componentManager.registerComponent(UserController.class);
     }
 
-    @Override
-    public void disable() {}
+    public void disable() {
+    }
 
-    @Override
-    public @NonNull DreamVersion getDreamVersion() {
-        return DreamVersion.create("Dream-Totem", "1.0.2", "Sayler");
+    @NonNull
+    public DreamVersion getDreamVersion() {
+        return DreamVersion.create("Dream-Totem", "1.0.4", "Sayler");
     }
 
     @Override

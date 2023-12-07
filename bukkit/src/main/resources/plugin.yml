@@ -1,5 +1,5 @@
 main: "cc.dreamcode.totem.TotemPlugin"
-version: "1.0.2"
+version: "1.0.4"
 name: "Dream-Totem"
 description: "Dream-Totem plugin written by dreamcode.cc"
 website: "https://dreamcode.cc"
