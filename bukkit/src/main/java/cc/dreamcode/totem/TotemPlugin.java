@@ -68,9 +68,9 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
             componentManager.registerComponent(UserRepository.class);
             componentManager.registerComponent(VaultApi.class);
             componentManager.registerComponent(TotemMenuHolder.class);
-            componentManager.registerComponent(TotemCommand.class);
         });
 
+        componentManager.registerComponent(TotemCommand.class);
         componentManager.registerComponent(UserController.class);
     }
 
@@ -79,7 +79,7 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
 
     @Override
     public @NonNull DreamVersion getDreamVersion() {
-        return DreamVersion.create("Dream-Totem", "1.0.2", "Sayler");
+        return DreamVersion.create("Dream-Totem", "1.0.5", "Sayler");
     }
 
     @Override

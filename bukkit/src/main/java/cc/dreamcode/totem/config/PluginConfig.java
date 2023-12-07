@@ -27,10 +27,12 @@ public class PluginConfig extends OkaeriConfig {
     @Comment("Debug pokazuje dodatkowe informacje do konsoli. Lepiej wylaczyc. :P")
     public boolean debug = true;
 
+    @Comment("Czy zakupiony efekt ma się usuwać po użyciu")
+    public boolean removeAfterUse = true;
+
     @Comment("Uzupelnij ponizsze menu danymi.")
     public StorageConfig storageConfig = new StorageConfig("dreamtotem");
-
-    @Comment("Ustaw efekty (duration: 20 = 1 sekunda).")
+    @Comment("Ustaw efekty w tickach (20 ticków = 1 sekunda).")
     public Map<String, TotemEffect> effects = new MapBuilder<String, TotemEffect>()
             .put("strength", new TotemEffect(PotionEffectType.INCREASE_DAMAGE,
                     false,
