@@ -1,7 +1,6 @@
 package cc.dreamcode.totem.controller;
 
 import cc.dreamcode.totem.TotemEffect;
-import cc.dreamcode.totem.config.PluginConfig;
 import cc.dreamcode.totem.user.UserRepository;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.tasker.core.Tasker;
@@ -19,7 +18,6 @@ import org.bukkit.potion.PotionEffect;
 @RequiredArgsConstructor(onConstructor_= @Inject)
 public class UserController implements Listener {
     private final UserRepository userRepository;
-    private final PluginConfig pluginConfig;
     private final Tasker tasker;
 
     @EventHandler
@@ -59,8 +57,7 @@ public class UserController implements Listener {
                     if(user.getTotemEffect() == null) return;
                     TotemEffect totemEffect = user.getTotemEffect();
                     PotionEffect potionEffect = user.getTotemEffect().getPotionEffect();
-                    if(pluginConfig.removeAfterUse)
-                        user.setTotemEffect(null);
+                    user.setTotemEffect(null);
 
                     //For opponent
                     if(totemEffect.isForOpponent()){
@@ -80,18 +77,15 @@ public class UserController implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent event){
-        if(!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)) return;
+        if(!(event.getEntity() instanceof Player) && !(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
         this.tasker.newChain()
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
-                .acceptSync(user -> {
-                    user.setLastDamagerUUID(damager.getUniqueId());
-                })
                 .acceptAsync(user -> {
-                    user.save();
+                    user.setLastDamagerUUID(damager.getUniqueId());
                 })
                 .execute();
     }
