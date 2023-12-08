@@ -15,17 +15,23 @@ public class VaultApi {
 
     @Inject
     public VaultApi() {
-        setupEconomy();
+        if (!setupEconomy() ) {
+            getLogger().severe(String.format("Nie odnaleziono Pluginu `Vault`."));
+        }else{
+            getLogger().info("Pomyslnie załadowano hook: Vault");
+        }
+
         this.initialized = economy != null;
     }
 
-    private void setupEconomy() {
-        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(Economy.class);
-        if (economyProvider == null){
-            getLogger().warning("Nie odnaleziono VaultAPI!");
-            return;
+    private boolean setupEconomy()
+    {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            economy = economyProvider.getProvider();
         }
-        economy = economyProvider.getProvider();
+
+        return (economy != null);
     }
 
     public boolean hasMoney(Player player, double amount){

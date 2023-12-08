@@ -38,6 +38,7 @@ public class TotemCommand extends BukkitCommand {
         if (args[0].equalsIgnoreCase("reload")) {
             this.pluginConfig.load();
             this.messageConfig.load();
+            this.totemMenuHolder.update();
             player.sendMessage(ChatUtil.fixColor("&a&lPomyślnie przeładowano konfigurację."));
         }
     }

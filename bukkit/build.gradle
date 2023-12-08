@@ -7,7 +7,7 @@ repositories {
 dependencies {
     // -- spigot api -- (base)
     compileOnly 'org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT'
-    implementation "com.github.MilkBowl:VaultAPI:1.7.1"
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
 
     // -- dream-platform --
     implementation "cc.dreamcode.platform:core:1.9.6"

@@ -28,10 +28,13 @@ import eu.okaeri.persistence.document.DocumentPersistence;
 import eu.okaeri.tasker.bukkit.BukkitTasker;
 import lombok.Getter;
 import lombok.NonNull;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukkitConfig, DreamPersistence {
 
     @Getter private static TotemPlugin totemPlugin;
+    @Getter private static Economy econ = null;
 
     @Override
     public void load(@NonNull ComponentManager componentManager) {
@@ -59,10 +62,10 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
             componentManager.registerResolver(DocumentRepositoryComponentResolver.class);
             componentManager.registerComponent(DocumentPersistence.class);
             componentManager.registerComponent(UserRepository.class);
-            componentManager.registerComponent(VaultApi.class);
             componentManager.registerComponent(TotemMenuHolder.class);
             return;
         });
+        componentManager.registerComponent(VaultApi.class);
         componentManager.registerComponent(TotemCommand.class);
         componentManager.registerComponent(UserController.class);
     }
@@ -72,7 +75,7 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
 
     @NonNull
     public DreamVersion getDreamVersion() {
-        return DreamVersion.create("Dream-Totem", "1.0.4", "Sayler");
+        return DreamVersion.create("Dream-Totem", "1.0.5", "Sayler");
     }
 
     @Override
