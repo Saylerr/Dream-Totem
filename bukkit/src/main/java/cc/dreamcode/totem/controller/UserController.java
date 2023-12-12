@@ -77,7 +77,8 @@ public class UserController implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent event){
-        if(!(event.getEntity() instanceof Player) && !(event.getDamager() instanceof Player)) return;
+        if(!(event.getEntity() instanceof Player)) return;
+        if(!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
