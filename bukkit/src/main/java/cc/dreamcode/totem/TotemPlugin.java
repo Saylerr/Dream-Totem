@@ -51,10 +51,12 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
         componentManager.registerResolver(ListenerComponentResolver.class);
         componentManager.registerResolver(RunnableComponentResolver.class);
         componentManager.registerResolver(ConfigurationComponentResolver.class);
+
         componentManager.registerComponent(MessageConfig.class, messageConfig -> this.getInject(BukkitCommandProvider.class).ifPresent(bukkitCommandProvider -> {
             bukkitCommandProvider.setRequiredPermissionMessage(messageConfig.noPermission.getText());
             bukkitCommandProvider.setRequiredPlayerMessage(messageConfig.notPlayer.getText());
         }));
+
         componentManager.registerComponent(PluginConfig.class, pluginConfig -> {
             componentManager.setDebug(pluginConfig.debug);
             this.registerInjectable(pluginConfig.storageConfig);
@@ -63,8 +65,8 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
             componentManager.registerComponent(DocumentPersistence.class);
             componentManager.registerComponent(UserRepository.class);
             componentManager.registerComponent(TotemMenuHolder.class);
-            return;
         });
+
         componentManager.registerComponent(VaultApi.class);
         componentManager.registerComponent(TotemCommand.class);
         componentManager.registerComponent(UserController.class);
@@ -75,7 +77,7 @@ public final class TotemPlugin extends DreamBukkitPlatform implements DreamBukki
 
     @NonNull
     public DreamVersion getDreamVersion() {
-        return DreamVersion.create("Dream-Totem", "1.0.5", "Sayler");
+        return DreamVersion.create("Dream-Totem", "1.0.6", "Sayler");
     }
 
     @Override

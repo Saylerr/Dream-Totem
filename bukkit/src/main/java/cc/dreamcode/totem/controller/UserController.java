@@ -4,7 +4,6 @@ import cc.dreamcode.totem.TotemEffect;
 import cc.dreamcode.totem.user.UserRepository;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.tasker.core.Tasker;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,10 +14,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 
-@RequiredArgsConstructor(onConstructor_= @Inject)
 public class UserController implements Listener {
-    private final UserRepository userRepository;
-    private final Tasker tasker;
+    @Inject private UserRepository userRepository;
+    @Inject private Tasker tasker;
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -31,7 +29,8 @@ public class UserController implements Listener {
                 })
                 .acceptAsync(user -> {
                     user.save();
-                }).execute();
+                })
+                .execute();
     }
 
     @EventHandler
@@ -42,7 +41,8 @@ public class UserController implements Listener {
                 .async(() -> this.userRepository.findOrCreateByHumanEntity(player))
                 .acceptAsync(user -> {
                     user.save();
-                }).execute();
+                })
+                .execute();
     }
 
     @EventHandler

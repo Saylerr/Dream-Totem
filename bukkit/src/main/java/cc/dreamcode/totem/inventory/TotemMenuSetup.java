@@ -8,6 +8,7 @@ import cc.dreamcode.totem.config.PluginConfig;
 import cc.dreamcode.totem.user.UserRepository;
 import cc.dreamcode.totem.vault.VaultApi;
 import cc.dreamcode.utilities.builder.MapBuilder;
+import cc.dreamcode.utilities.bukkit.ItemUtil;
 import cc.dreamcode.utilities.bukkit.builder.ItemBuilder;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.tasker.core.Tasker;

@@ -1,5 +1,6 @@
 package cc.dreamcode.totem.command;
 
+import cc.dreamcode.command.annotations.RequiredPermission;
 import cc.dreamcode.command.annotations.RequiredPlayer;
 import cc.dreamcode.command.bukkit.BukkitCommand;
 import cc.dreamcode.totem.config.MessageConfig;
@@ -11,6 +12,7 @@ import lombok.NonNull;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredPlayer
@@ -45,6 +47,10 @@ public class TotemCommand extends BukkitCommand {
 
     @Override
     public List<String> tab(@NonNull CommandSender sender, @NonNull String[] args) {
-        return null;
+        if(args.length == 1 && sender.hasPermission("dream.totem.reload")){
+            return Collections.singletonList("reload");
+        }
+
+        return Collections.emptyList();
     }
 }

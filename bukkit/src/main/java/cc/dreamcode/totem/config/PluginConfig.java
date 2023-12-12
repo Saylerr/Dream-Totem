@@ -13,6 +13,7 @@ import eu.okaeri.configs.annotation.Header;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
@@ -40,8 +41,13 @@ public class PluginConfig extends OkaeriConfig {
                     12,
                     XMaterial.TOTEM_OF_UNDYING.parseMaterial(),
                     "&bSiła III &8(&35s&8)",
-                    Arrays.asList("&7Cena: &f{PRICE}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
-                    Collections.singletonList(new ItemStack(XMaterial.GOLD_BLOCK.parseMaterial(), 16))))
+                    Arrays.asList("&7Cena: &f{price}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
+                    Collections.singletonList(new ItemBuilder(XMaterial.SUNFLOWER.parseMaterial(),
+                                    16)
+                                    .setName("&8> &6MONETA &8<")
+                                    .setLore(Arrays.asList("Waluta serwerowa", "Możesz ją użyć w menu totemów"))
+                                    .addEnchant(Enchantment.DAMAGE_ALL, 1, true)
+                            .toItemStack())))
 
             .put("speed", new TotemEffect(PotionEffectType.SPEED,
                     false,
@@ -51,7 +57,7 @@ public class PluginConfig extends OkaeriConfig {
                     13,
                     XMaterial.TOTEM_OF_UNDYING.parseMaterial(),
                     "&bSzybkość III &8(&33s&8)",
-                    Arrays.asList("&7Cena: &f{PRICE}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
+                    Arrays.asList("&7Cena: &f{price}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
                     Collections.singletonList(new ItemStack(XMaterial.GOLD_BLOCK.parseMaterial(), 16))))
 
             .put("resistance", new TotemEffect(PotionEffectType.DAMAGE_RESISTANCE,
@@ -62,7 +68,7 @@ public class PluginConfig extends OkaeriConfig {
                     14,
                     XMaterial.TOTEM_OF_UNDYING.parseMaterial(),
                     "&bOdporność II &8(&32s&8)",
-                    Arrays.asList("&7Cena: &f{PRICE}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
+                    Arrays.asList("&7Cena: &f{price}&7$", "&7Wymagane przedmioty: &f16 Bloków złota", " ", "§8x §7Kliknij §bPPM §7aby zakupić."),
                     Collections.singletonList(new ItemStack(XMaterial.GOLD_BLOCK.parseMaterial(), 16))))
             .build();
 
