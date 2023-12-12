@@ -15,17 +15,16 @@ public class VaultApi {
 
     @Inject
     public VaultApi() {
-        if (!setupEconomy() ) {
+        if (!setupEconomy()) {
             getLogger().severe(String.format("Nie odnaleziono Pluginu `Vault`."));
-        }else{
+        } else {
             getLogger().info("Pomyslnie załadowano hook: Vault");
         }
 
         this.initialized = economy != null;
     }
 
-    private boolean setupEconomy()
-    {
+    private boolean setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             economy = economyProvider.getProvider();
